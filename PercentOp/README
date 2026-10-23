@@ -1,0 +1,170 @@
+# Analisador de Custo Operacional em Matrizes — Lei Distributiva
+
+Este repositório contém dois scripts em Python desenvolvidos para analisar e comparar o custo computacional da aplicação da **propriedade distributiva da multiplicação de matrizes**:
+
+\[
+A(B+C)=AB+AC
+\]
+
+O objetivo é comparar o número de adições e multiplicações necessárias em cada abordagem, verificando como o custo operacional cresce conforme as dimensões das matrizes aumentam.
+
+## 📁 Estrutura do Repositório
+
+| Arquivo | Descrição |
+|---|---|
+| `verificacaomanual.py` | Script interativo em Python puro para testar dimensões específicas de matrizes por meio de um menu no terminal (CLI). |
+| `grafico.py` | Script para automatizar testes em diferentes dimensões, coletar os resultados e gerar gráficos comparativos. |
+
+---
+
+## 1. `verificacaomanual.py`
+
+### Descrição
+
+Implementa operações de multiplicação e adição de matrizes utilizando listas aninhadas nativas do Python, sem depender de bibliotecas especializadas em computação numérica.
+
+O programa contabiliza as operações aritméticas realizadas em cada abordagem da propriedade distributiva, permitindo comparar os custos de:
+
+- **Lado esquerdo:** \(A(B+C)\)
+- **Lado direito:** \(AB+AC\)
+
+O script disponibiliza um menu interativo que permite selecionar manualmente o teste desejado.
+
+### Como executar
+
+Certifique-se de ter o Python 3 instalado. Em seguida, abra o terminal na pasta do repositório e execute:
+
+```bash
+python verificacaomanual.py
+```
+
+### Opções do menu
+
+| Opção | Dimensões das matrizes |
+|---|---|
+| `0` | Encerra a execução. |
+| `1` | Teste assimétrico: \(A_{2\times3}\), \(B_{3\times2}\) e \(C_{3\times2}\). |
+| `2` | Matrizes quadradas \(4\times4\). |
+| `3` | Matrizes quadradas \(8\times8\). |
+| `4` | Matrizes quadradas \(16\times16\). |
+| `5` | Matrizes quadradas \(32\times32\). |
+| `6` | Matrizes quadradas \(64\times64\). |
+| `7` | Matrizes quadradas \(128\times128\). |
+| `8` | Matrizes quadradas \(256\times256\). |
+| `9` | Matrizes quadradas \(512\times512\). |
+| `10` | Matrizes quadradas \(1024\times1024\). |
+
+---
+
+## 2. `grafico.py`
+
+### Descrição
+
+Script destinado à execução no Google Colab ou em um ambiente Python local com as bibliotecas necessárias instaladas.
+
+Seu objetivo é automatizar a análise para múltiplas dimensões de matrizes, registrar as contagens de operações e gerar gráficos que permitam visualizar e comparar o custo computacional das duas expressões.
+
+### Como executar no Google Colab
+
+1. Acesse o [Google Colab](https://colab.research.google.com/).
+2. Crie um novo notebook.
+3. Copie o conteúdo de `grafico.py` para uma célula de código.
+4. Execute a célula.
+5. Analise os resultados numéricos e os gráficos gerados.
+
+### Execução local
+
+Caso as dependências necessárias estejam instaladas, execute:
+
+```bash
+python grafico.py
+```
+
+Se o script utilizar bibliotecas externas, como Matplotlib ou NumPy, instale-as conforme necessário:
+
+```bash
+pip install matplotlib numpy
+```
+
+---
+
+## 🧮 Fundamento Matemático
+
+A propriedade distributiva estabelece que:
+
+\[
+A(B+C)=AB+AC
+\]
+
+Para matrizes quadradas de ordem \(n\), considerando a multiplicação convencional de matrizes, temos as seguintes contagens teóricas.
+
+### Abordagem 1 — \(A(B+C)\)
+
+Primeiro, calcula-se \(B+C\). Em seguida, multiplica-se o resultado por \(A\).
+
+- Soma de matrizes: \(n^2\) adições.
+- Multiplicação de matrizes: \(n^3\) multiplicações escalares e \(n^2(n-1)\) adições escalares.
+
+Portanto:
+
+\[
+M_{\text{esquerda}}=n^3
+\]
+
+\[
+S_{\text{esquerda}}=n^2+n^2(n-1)=n^3
+\]
+
+### Abordagem 2 — \(AB+AC\)
+
+Primeiro, calculam-se os produtos \(AB\) e \(AC\). Depois, somam-se as matrizes resultantes.
+
+- Duas multiplicações de matrizes: \(2n^3\) multiplicações escalares.
+- Adições internas das multiplicações: \(2n^2(n-1)\).
+- Soma dos produtos: \(n^2\) adições.
+
+Portanto:
+
+\[
+M_{\text{direita}}=2n^3
+\]
+
+\[
+S_{\text{direita}}=2n^2(n-1)+n^2=2n^3-n^2
+\]
+
+### Comparação teórica
+
+| Operação | \(A(B+C)\) | \(AB+AC\) |
+|---|---:|---:|
+| Multiplicações escalares | \(n^3\) | \(2n^3\) |
+| Adições escalares | \(n^3\) | \(2n^3-n^2\) |
+| Total de operações | \(2n^3\) | \(4n^3-n^2\) |
+
+Essas fórmulas consideram o algoritmo convencional de multiplicação de matrizes, sem otimizações algorítmicas.
+
+---
+
+## 📊 Objetivos da Análise
+
+- Verificar experimentalmente a equivalência algébrica das duas expressões.
+- Comparar a quantidade de operações aritméticas em cada abordagem.
+- Investigar como o custo computacional cresce com o aumento das dimensões das matrizes.
+- Visualizar os resultados por meio de gráficos comparativos.
+- Relacionar os resultados experimentais às contagens teóricas de operações.
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Python 3** — implementação das operações matriciais e contagem de operações.
+- **Google Colab** — ambiente sugerido para execução automatizada e visualização dos resultados.
+- **Matplotlib** — geração de gráficos, caso utilizado pelo script.
+
+## 📌 Observação
+
+A contagem de operações aritméticas não equivale necessariamente ao tempo de execução. O desempenho real também depende da implementação, do gerenciamento de memória, das otimizações do interpretador e do hardware utilizado.
+
+Além disso, os resultados experimentais devem ser interpretados de acordo com a forma como cada script contabiliza as operações.
+
+---
+
+
